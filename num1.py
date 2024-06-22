@@ -65,6 +65,15 @@ banner = Center.XCenter(r"""****************************************************
                           
 """)
 
+def rainbow_gradient_text(text):
+    for i, char in enumerate(text):
+        r = int((i / len(text)) * 255)
+        g = int((1 - (i / len(text))) * 255)
+        color = f"\033[38;2;{r};{g};0m"
+        print(f"{color}{char}\033[0m", end="")
+    print()
+
+
 def is_valid_mobile_number(mobile_number):
     try:
         phone_number = phonenumbers.parse(mobile_number)
@@ -106,7 +115,7 @@ def check_number():
                 local_format = response_json["local_format"]
                 valid = response_json["valid"]
                 location = response_json["location"]
-                print(
+                rainbow_gradient_text(
                     f"Country code: {country_code}\nNumber: {number}\nCountry name: {country_name}\nCountry prefix: {country_prefix}\nInternational format: {international_format}\nLine type: {line_type}\nLocal format: {local_format}\nLocation: {location}\nValid: {valid}")
             else:
                 print(Fore.RED + f"Error: {status_code}")
